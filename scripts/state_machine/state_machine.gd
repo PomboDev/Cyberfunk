@@ -1,7 +1,8 @@
 class_name StateMachine
 extends Node
 
-var current_state: State = null
+@onready var current_owner: Node = get_owner()
+@export var current_state: State = null
 var states: Dictionary = {}
 
 func _ready():
@@ -10,7 +11,7 @@ func _ready():
 			states[child.name] = child
 			child.state_machine = self
 	
-	if states.size() > 0:
+	if current_state == null and states.size() > 0:
 		change_state(states.keys()[0])
 
 func change_state(new_state_name: String):

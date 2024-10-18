@@ -1,21 +1,37 @@
-[gd_scene load_steps=6 format=3 uid="uid://by5hfwln3k1p8"]
+[gd_scene load_steps=14 format=3 uid="uid://by5hfwln3k1p8"]
 
 [ext_resource type="PackedScene" uid="uid://7f637032xgyj" path="res://scenes/components/health/health_component.tscn" id="1_1ustu"]
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_osgi3"]
 [ext_resource type="PackedScene" uid="uid://c3a33gs68agyc" path="res://scenes/components/hurtbox/hurtbox_component.tscn" id="2_ltge0"]
 [ext_resource type="PackedScene" uid="uid://ce0u26itauanj" path="res://scenes/components/velocity/velocity_component.tscn" id="3_vxo3o"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="5_gul58"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_idle.gd" id="6_ekers"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_fall.gd" id="7_yravd"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_run.gd" id="8_7j7ne"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_jump.gd" id="9_3ghfj"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_dash.gd" id="10_v75sa"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_wall_jump.gd" id="11_b1fkk"]
+[ext_resource type="Script" path="res://scenes/entities/player/states/player_wall_slide.gd" id="12_gkhj2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_c31lm"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l0ac3"]
+size = Vector2(16, 16)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "animation_player", "sprite")]
 scale = Vector2(5, 5)
 script = ExtResource("1_osgi3")
+state_machine = NodePath("StateMachine")
+animation_player = NodePath("AnimationPlayer")
+sprite = NodePath("Sprite2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_c31lm")
+shape = SubResource("RectangleShape2D_l0ac3")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_1ustu")]
 
@@ -23,4 +39,27 @@ shape = SubResource("CircleShape2D_c31lm")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("3_vxo3o")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_gul58")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("6_ekers")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("7_yravd")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("8_7j7ne")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("9_3ghfj")
+
+[node name="Dash" type="Node" parent="StateMachine"]
+script = ExtResource("10_v75sa")
+
+[node name="WallJump" type="Node" parent="StateMachine"]
+script = ExtResource("11_b1fkk")
+
+[node name="WallSlide" type="Node" parent="StateMachine"]
+script = ExtResource("12_gkhj2")
