@@ -13,3 +13,15 @@ extends CharacterBody2D
 @export var state_machine: StateMachine
 @export var animation_player: AnimationPlayer
 @export var sprite: Sprite2D
+@export var input_dir: float = 0
+
+func process_movement(delta):
+	var input_dir: float = Input.get_axis("move_left", "move_right")
+	velocity.x = input_dir * move_speed
+	sprite.flip_h = input_dir < 0
+	
+	if !is_on_floor():
+		velocity.y += gravity * delta
+		velocity.y = min(velocity.y, max_fall_speed)
+	
+	move_and_slide()
