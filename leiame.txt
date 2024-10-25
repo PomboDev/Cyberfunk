@@ -1,0 +1,18 @@
+CYBERFUNK
+
+Cyberfunk é um platformer de ação (protótipo ficou sem elementos de ação por limitação de tempo) em alta velocidade ambientado em um brasil favelado cyberpunk. Inspirado em clássicos como Mega Man X, o jogo foca em movimentação fluida e dinâmica, permitindo que os jogadores encadeiem diferentes técnicas de movimento como wall jumps, dashes e slides para atravessar os níveis com velocidade.
+​
+🎮 CONTROLES:
+- A/D ou ←/→ : Mover 
+- SPACE : Pular 
+- SHIFT : Dash
+
+Dicas:
+- Pule durante o wall slide para realizar um wall jump 
+- Use o dash durante pulos e wall jumps para ganhar velocidade extra
+
+​
+CRÉDITOS:
+- Game Design e Programação: Thales Juan dos Santos e Andrew Calderipe da Rosa
+- Arte: Ana Luisa Matos Leonel A​ssis e Ana Carolina Soares R​adtke
+- Desenvolvido com Godot Engine 4.3

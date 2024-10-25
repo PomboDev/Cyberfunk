@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7tvtux74okya"]
+
+[ext_resource type="Shader" path="res://scenes/entities/player/ghost_effect.gdshader" id="1_3a0s5"]
+[ext_resource type="Texture2D" uid="uid://cut0s2ylosi2l" path="res://scenes/entities/player/assets/player.png" id="1_lgnmx"]
+[ext_resource type="Script" path="res://scenes/entities/player/ghost_effect.gd" id="1_o16ht"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4tyf"]
+shader = ExtResource("1_3a0s5")
+shader_parameter/whiten = true
+shader_parameter/mix_weight = 1.0
+
+[node name="GhostEffect" type="Sprite2D"]
+z_index = -2
+material = SubResource("ShaderMaterial_e4tyf")
+texture = ExtResource("1_lgnmx")
+script = ExtResource("1_o16ht")

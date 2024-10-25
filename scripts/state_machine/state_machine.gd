@@ -8,7 +8,7 @@ var states: Dictionary = {}
 func _ready():
 	for child in get_children():
 		if child is State:
-			states[child.name] = child
+			states[child.name.to_lower()] = child
 			child.state_machine = self
 	
 	if current_state == null and states.size() > 0:
@@ -18,7 +18,7 @@ func change_state(new_state_name: String):
 	if current_state:
 		current_state.exit()
 	
-	current_state = states[new_state_name]
+	current_state = states[new_state_name.to_lower()]
 	current_state.enter()
 
 func _process(delta):
